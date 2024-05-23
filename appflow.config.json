@@ -1,0 +1,10 @@
+{
+  "apps": [
+    {
+      "appId": "id",
+      "root": "frontend",
+      "dependencyInstallCommand": "npm i -g pnpm && pnpm i --filter=frontend",
+      "webBuildCommand": "pnpm build --filter=frontend"
+    }
+  ]
+}

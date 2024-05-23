@@ -2,7 +2,12 @@
   "name": "capacitor-solid-template",
   "version": "0.0.0",
   "description": "",
+  "packageManager": "pnpm@9.1.2",
+  "engines": {
+    "node": "20.12.x"
+  },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "dev": "vite",
     "build": "vite build",
     "typecheck": "tsc --noEmit",
