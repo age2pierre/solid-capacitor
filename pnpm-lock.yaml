@@ -17,6 +17,9 @@ importers:
       '@capacitor/ios':
         specifier: ^6.0.0
         version: 6.0.0(@capacitor/core@6.0.0)
+      '@tanstack/solid-virtual':
+        specifier: ^3.5.0
+        version: 3.5.0(solid-js@1.8.17)
       solid-js:
         specifier: ^1.8.17
         version: 1.8.17
@@ -479,6 +482,14 @@ packages:
     resolution: {integrity: sha512-UOo5FdvOL0+eIVTgS4tIdbW+TtnBLWg1YBCcU2KWM7nuNwRz9bksDX1bekJJCpu25N1DVWaCwnT39dVQxzqS8g==}
     cpu: [x64]
     os: [win32]
+
+  '@tanstack/solid-virtual@3.5.0':
+    resolution: {integrity: sha512-iqiaHaEN23VIRQbCs+vtZ4gBt66M0QxPQ1q7lQXfAL+rkvZCbvdf9jzQ8PX+bvvd0NQQvqxtHuDMc9cUNfPmXg==}
+    peerDependencies:
+      solid-js: ^1.3.0
+
+  '@tanstack/virtual-core@3.5.0':
+    resolution: {integrity: sha512-KnPRCkQTyqhanNC0K63GBG3wA8I+D1fQuVnAvcBF8f13akOKeQp1gSbu6f77zCxhEk727iV5oQnbHLYzHrECLg==}
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -1792,6 +1803,13 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.18.0':
     optional: true
+
+  '@tanstack/solid-virtual@3.5.0(solid-js@1.8.17)':
+    dependencies:
+      '@tanstack/virtual-core': 3.5.0
+      solid-js: 1.8.17
+
+  '@tanstack/virtual-core@3.5.0': {}
 
   '@types/babel__core@7.20.5':
     dependencies:
