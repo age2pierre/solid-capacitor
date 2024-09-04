@@ -4,7 +4,7 @@ export default function DemoDynList() {
   return (
     <DynVirtualList
       class="mx-auto"
-      dataStream={[...new Array(1085)].map(
+      dataStream={[...new Array<void>(1085)].map(
         (_, i) => `https://picsum.photos/id/${i}/300/200`,
       )}
       overscan={5}

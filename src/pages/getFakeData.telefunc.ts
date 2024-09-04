@@ -1,7 +1,8 @@
-import { getContext } from 'telefunc'
 import { readFile } from 'node:fs/promises'
 
-export async function hello({ name }: { name: string }) {
+import { getContext } from 'telefunc'
+
+export function hello({ name }: { name: string }) {
   const { user } = getContext()
   const message = 'awesome ' + (user?.display_name ?? name)
   return { message }

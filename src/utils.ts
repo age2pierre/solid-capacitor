@@ -64,7 +64,9 @@ export function zip<T extends (readonly unknown[])[]>(
   ...args: T
 ): { [K in keyof T]: T[K] extends (infer V)[] ? V : never }[] {
   const minLength = Math.min(...args.map((arr) => arr.length))
-  return range(minLength).map((i) => args.map((arr) => arr[i])) as any
+  return range(minLength).map((i) => args.map((arr) => arr[i])) as {
+    [K in keyof T]: T[K] extends (infer V)[] ? V : never
+  }[]
 }
 
 /**
@@ -84,7 +86,7 @@ export function isColorDark(color: string): 'light' | 'dark' {
 /**
  * chunk([a,b,c,d,e], 2) === [[a,b],[c,d],[e]]
  * */
-export function chunk<T>(arr: Array<T>, size: number): Array<T[]> {
+export function chunk<T>(arr: T[], size: number): T[][] {
   if (!arr.length) {
     return []
   }
@@ -103,6 +105,7 @@ export function clamp(num: number, min: number, max: number): number {
  * `wait` milliseconds have elapsed since the last time it was invoked.
  * The returned function accepts the same arguments as `func.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function debounce<T extends (...args: any[]) => void>(
   func: T,
   waitMs: number,
@@ -122,6 +125,7 @@ export function debounce<T extends (...args: any[]) => void>(
  * per every `wait` milliseconds.
  * The returned function accepts the same arguments as `func.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function throttle<T extends (...args: any[]) => void>(
   func: T,
   waitMs: number,

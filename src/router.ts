@@ -1,23 +1,24 @@
-import { RouteDefinition } from "@solidjs/router";
+import { type RouteDefinition } from "@solidjs/router";
 import { lazy } from "solid-js";
+
 import { cachedReadLockFile } from "./pages/DemoDataLoadind.data";
 
 export const ROUTES = [
-  { path: '/', component: lazy(() => import('./pages/Home')) },
+  { path: '/', component: lazy(async () => import('./pages/Home')) },
   {
     path: '/demo-data-loading',
-    component: lazy(() => import('./pages/DemoDataLoading')),
+    component: lazy(async () => import('./pages/DemoDataLoading')),
     preload: () => {
-      cachedReadLockFile();
+      void cachedReadLockFile();
     },
   },
   {
     path: '/demo-dyn-list',
-    component: lazy(() => import('./pages/DemoDynList')),
+    component: lazy(async () => import('./pages/DemoDynList')),
   },
   {
     path: '/demo-lazy-images',
-    component: lazy(() => import('./pages/DemoLazyImages')),
+    component: lazy(async () => import('./pages/DemoLazyImages')),
   },
 ] as const satisfies RouteDefinition[];
 

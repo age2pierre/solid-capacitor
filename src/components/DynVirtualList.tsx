@@ -1,6 +1,6 @@
 // https://github.com/crabnebula-dev/devtools/blob/b34c10993415701de881bef06c3f4eeba655c0a3/clients/web/src/components/virtual-list.tsx
-import { type JSXElement, Show, For, createEffect } from 'solid-js'
 import { createVirtualizer } from '@tanstack/solid-virtual'
+import { createEffect,For, type JSXElement, Show } from 'solid-js'
 
 export function DynVirtualList<VirtualItem>(props: {
   dataStream: VirtualItem[]
@@ -59,7 +59,7 @@ export function DynVirtualList<VirtualItem>(props: {
                 <li
                   data-index={virtualRow.index}
                   ref={(el) =>
-                    queueMicrotask(() => virtualizer.measureElement(el))
+                    { queueMicrotask(() => { virtualizer.measureElement(el); }); }
                   }
                 >
                   <Show when={props.dataStream[virtualRow.index]}>

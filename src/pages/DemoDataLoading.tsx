@@ -1,4 +1,5 @@
 import { createAsync } from '@solidjs/router'
+
 import { cachedReadLockFile } from './DemoDataLoadind.data'
 
 export default function DemoDataLoading() {

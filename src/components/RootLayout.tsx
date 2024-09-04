@@ -1,4 +1,5 @@
-import { ParentProps } from "solid-js";
+import { type ParentProps } from "solid-js";
+
 import { ROUTES } from '../router';
 
 export function RootLayout(props: ParentProps) {

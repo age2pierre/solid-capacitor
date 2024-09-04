@@ -3,7 +3,7 @@ import { LazyImg } from '../components/LazyImg'
 export default function DemoLazyImages() {
   return (
     <>
-      {[...new Array(1085)]
+      {[...new Array<void>(1085)]
         .map((_, i) => `https://picsum.photos/id/${i}/300/200`)
         .map((item) => (
           <div class="w-full h-[200px]">

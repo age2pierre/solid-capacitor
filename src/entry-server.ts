@@ -5,12 +5,12 @@ import { type Telefunc, telefunc } from 'telefunc'
 import { createServer } from 'vite'
 
 export const isProduction = process.env.NODE_ENV === 'production'
-export const PORT: number = 3000
+export const PORT = 3000
 export const JWT_SECRET = process.env.JWT_SECRET ?? 'JWT_SECRET'
 
 await startServer()
 
-type TokenPayload = {
+export type TokenPayload = {
   user_id: string
   display_name: string
 }
@@ -34,16 +34,16 @@ async function startServer() {
   // RPC middleware
   app.all('/_telefunc', async (req, res) => {
     // decode JWT token if present in authorization header
-    const token = req.headers['authorization']?.split(' ')[1]
+    const token = req.headers.authorization?.split(' ')[1]
     const decoded = await new Promise<string | jwt.JwtPayload | undefined>(
       (resolve) => {
         if (!token) {
-          return resolve(undefined)
+          resolve(undefined); return;
         }
         jwt.verify(token, JWT_SECRET, (err, decoded) => {
           if (err) {
             console.warn('authenticateToken: token unauthenticated %j', err)
-            return resolve(undefined)
+            resolve(undefined); return;
           }
           resolve(decoded)
         })
@@ -60,7 +60,7 @@ async function startServer() {
     const { body, statusCode, contentType } = await telefunc({
       url: req.originalUrl,
       method: req.method,
-      body: req.body,
+      body: req.body as string,
       context,
     })
     res.status(statusCode).type(contentType).send(body)
@@ -68,7 +68,8 @@ async function startServer() {
 
   if (isProduction) {
     // serve static file in prod
-    app.use((req, res) =>
+    console.log('Serving static files in production mode...')
+    app.use(async (req, res) =>
       serveHandler(req, res, {
         public: `${import.meta.dirname}/../client/`,
         rewrites: [
@@ -81,6 +82,7 @@ async function startServer() {
     )
   } else {
     // use vite for HRM
+    console.log('Using vite for HMR in development mode...')
     const viteDevMiddleware = (
       await createServer({
         root: `${import.meta.dirname}/..`,
