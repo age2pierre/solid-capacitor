@@ -3,10 +3,13 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "node",
+    "moduleDetection": "force",
+    "strict": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
+    "skipLibCheck": true,
     "types": ["vite/client"],
     "noEmit": true,
     "isolatedModules": true

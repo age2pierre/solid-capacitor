@@ -2,33 +2,50 @@
   "name": "capacitor-solid-template",
   "version": "0.0.0",
   "description": "",
+  "type": "module",
   "packageManager": "pnpm@9.1.2",
   "engines": {
     "node": "20.12.x"
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "tsx ./src/entry-server.ts",
+    "clean": "rm -rf dist",
+    "build": "pnpm run build:client && run pnpm build:server",
+    "build:client": "vite build",
+    "build:server": "vite build --ssr",
+    "format": "prettier --write . --ignore-unknown",
+    "format:check": "prettier --check . --ignore-unknown",
     "typecheck": "tsc --noEmit",
-    "serve": "vite preview",
+    "serve": "NODE_ENV=production node ./dist/server/entry-server.js",
     "android": "cap open android"
   },
   "license": "MIT",
   "devDependencies": {
-    "@capacitor/cli": "^6.0.0",
-    "autoprefixer": "^10.4.19",
-    "postcss": "^8.4.38",
-    "tailwindcss": "^3.4.3",
-    "typescript": "^5.4.5",
-    "vite": "^5.2.11",
-    "vite-plugin-solid": "^2.10.2"
+    "@capacitor/cli": "6.1.2",
+    "@types/express": "4.17.21",
+    "@types/jsonwebtoken": "9.0.6",
+    "@types/serve-handler": "6.1.4",
+    "autoprefixer": "10.4.20",
+    "postcss": "8.4.44",
+    "tailwindcss": "3.4.10",
+    "prettier": "3.3.3",
+    "typescript": "5.5.4",
+    "vite-plugin-inspect": "0.8.7",
+    "vite-plugin-solid": "2.10.2",
+    "vite": "5.4.2"
   },
   "dependencies": {
-    "@capacitor/android": "^6.0.0",
-    "@capacitor/core": "^6.0.0",
-    "@capacitor/ios": "^6.0.0",
-    "@tanstack/solid-virtual": "^3.5.0",
-    "solid-js": "^1.8.17"
+    "@capacitor/android": "6.1.2",
+    "@capacitor/core": "6.1.2",
+    "@capacitor/ios": "6.1.2",
+    "@solidjs/router": "0.14.3",
+    "@tanstack/solid-virtual": "3.10.6",
+    "express": "4.19.2",
+    "jsonwebtoken": "9.0.2",
+    "serve-handler": "6.1.5",
+    "tsx": "4.19.0",
+    "solid-js": "1.8.22",
+    "telefunc": "0.1.78"
   }
 }

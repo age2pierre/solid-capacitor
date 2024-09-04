@@ -1,10 +1,10 @@
-import { CapacitorConfig } from '@capacitor/cli';
+import { CapacitorConfig } from '@capacitor/cli'
 
 const config: CapacitorConfig = {
   appId: 'com.example.app',
   appName: 'capacitor-solid-template',
-  webDir: 'dist',
+  webDir: 'dist/client',
   bundledWebRuntime: false,
-};
+}
 
-export default config;
+export default config
