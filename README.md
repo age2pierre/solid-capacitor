@@ -41,3 +41,5 @@ To connect the mobile to your local server instance.
 ```
 adb reverse tcp:3000 tcp:3000
 ```
+
+To debug open a chromium browser and go to [chrome://inspect/#devices](chrome://inspect/#devices)

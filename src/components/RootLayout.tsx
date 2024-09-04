@@ -1,3 +1,4 @@
+import { A } from '@solidjs/router'
 import { For, type JSX, type ParentProps } from 'solid-js'
 
 import { ROUTES } from '../router'
@@ -12,12 +13,13 @@ export function RootLayout(props: ParentProps): JSX.Element {
             <For each={ROUTES}>
               {(item) => (
                 <li>
-                  <a
+                  <A
                     href={item.path}
                     class="text-gray-300 hover:text-white transition duration-150"
+                    activeClass="text-white underline"
                   >
                     {item.info.title}
-                  </a>
+                  </A>
                 </li>
               )}
             </For>

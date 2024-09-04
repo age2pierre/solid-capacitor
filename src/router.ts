@@ -7,23 +7,23 @@ export const ROUTES = [
   {
     path: '/',
     component: lazy(async () => import('./pages/Home')),
-    info: { title: 'Home' },
+    info: { title: '🏡 Home' },
   },
   {
     path: '/demo-data-loading',
     component: lazy(async () => import('./pages/DemoDataLoading')),
     preload: () => void cachedReadLockFile(),
-    info: { title: 'Data Loading' },
+    info: { title: '📊 Data Loading' },
   },
   {
     path: '/demo-virtual-list',
     component: lazy(async () => import('./pages/DemoVirtualList')),
-    info: { title: 'Virtual List' },
+    info: { title: '🖼️ Virtual List' },
   },
   {
     path: '/demo-lazy-images',
     component: lazy(async () => import('./pages/DemoLazyImages')),
-    info: { title: 'Lazy Images' },
+    info: { title: '🖼️ Lazy Images' },
   },
 ] as const satisfies RouteDefinition[]
 
