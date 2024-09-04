@@ -1,11 +1,10 @@
 import { type JSX } from 'solid-js'
 
-import { DynVirtualList } from '../components/DynVirtualList'
+import { VirtualList } from '../components/VirtualList'
 
-export default function DemoDynList(): JSX.Element {
+export default function DemoVirtualList(): JSX.Element {
   return (
-    <DynVirtualList
-      class="mx-auto"
+    <VirtualList
       dataStream={[...new Array<void>(1085)].map(
         (_, i) => `https://picsum.photos/id/${i}/300/200`,
       )}
@@ -21,6 +20,6 @@ export default function DemoDynList(): JSX.Element {
           />
         </div>
       )}
-    </DynVirtualList>
+    </VirtualList>
   )
 }

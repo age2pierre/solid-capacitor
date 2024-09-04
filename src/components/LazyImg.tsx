@@ -1,11 +1,11 @@
-import { createEffect } from 'solid-js'
+import { createEffect, type JSX } from 'solid-js'
 
 export function LazyImg(props: {
   src: string
   alt: string
   class?: string
   rootMargin?: string
-}) {
+}): JSX.Element {
   let imgRef: HTMLImageElement | undefined
 
   createEffect(() => {
@@ -29,7 +29,7 @@ export function LazyImg(props: {
       observer.observe(imgRef)
     }
 
-    return () => {
+    return (): void => {
       if (imgRef) {
         observer.unobserve(imgRef)
       }

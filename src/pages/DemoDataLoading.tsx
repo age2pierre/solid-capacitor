@@ -14,11 +14,9 @@ export default function DemoDataLoading(): JSX.Element {
           {(result) =>
             pipe(
               result(),
-              // @ts-expect-error: JSX.Element is always a union of nullable and non-nullable
-              R.map((val): Node => <pre>{val}</pre>),
+              R.map((val) => (<pre>{val}</pre>) as NonNullable<JSX.Element>),
               R.handleError(
-                // @ts-expect-error: JSX.Element is always a union of nullable and non-nullable
-                (err): Node => <p>{err}</p>,
+                (err) => (<p>{err}</p>) as NonNullable<JSX.Element>,
               ),
               R.toNullable,
             )
