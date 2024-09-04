@@ -1,3 +1,4 @@
+import { default as cors } from 'cors'
 import { default as express } from 'express'
 import { default as jwt } from 'jsonwebtoken'
 import { default as serveHandler } from 'serve-handler'
@@ -29,6 +30,12 @@ function isTokenPayload(payload: unknown): payload is TokenPayload {
 async function startServer(): Promise<void> {
   const app = express()
 
+  app.use(
+    cors({
+      origin: ['http://localhost:3000', 'https://localhost'],
+      credentials: true,
+    }),
+  )
   app.use(express.text())
 
   // RPC middleware

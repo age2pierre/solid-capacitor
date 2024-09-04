@@ -35,3 +35,9 @@ To open android studio :
 ```bash
 CAPACITOR_ANDROID_STUDIO_PATH=$(which android-studio) pnpm run android
 ```
+
+To connect the mobile to your local server instance.
+
+```
+adb reverse tcp:3000 tcp:3000
+```
