@@ -19,7 +19,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint ./src/",
     "lint:fix": "eslint --fix ./src/",
-    "serve": "vite preview",
+    "serve": "NODE_ENV=production tsx ./src/entry-server.ts",
     "android": "cap open android"
   },
   "license": "MIT",

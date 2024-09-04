@@ -73,7 +73,7 @@ async function startServer(): Promise<void> {
     console.log('Serving static files in production mode...')
     app.use(async (req, res) =>
       serveHandler(req, res, {
-        public: `${import.meta.dirname}/../client/`,
+        public: `${import.meta.dirname}/../dist/client/`,
         rewrites: [
           {
             source: '/{!(assets)/**/*,*}',
