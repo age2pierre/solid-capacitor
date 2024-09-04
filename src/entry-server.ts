@@ -26,7 +26,7 @@ function isTokenPayload(payload: unknown): payload is TokenPayload {
   )
 }
 
-async function startServer() {
+async function startServer(): Promise<void> {
   const app = express()
 
   app.use(express.text())
@@ -38,12 +38,14 @@ async function startServer() {
     const decoded = await new Promise<string | jwt.JwtPayload | undefined>(
       (resolve) => {
         if (!token) {
-          resolve(undefined); return;
+          resolve(undefined)
+          return
         }
         jwt.verify(token, JWT_SECRET, (err, decoded) => {
           if (err) {
             console.warn('authenticateToken: token unauthenticated %j', err)
-            resolve(undefined); return;
+            resolve(undefined)
+            return
           }
           resolve(decoded)
         })
@@ -83,6 +85,9 @@ async function startServer() {
   } else {
     // use vite for HRM
     console.log('Using vite for HMR in development mode...')
+    console.log(
+      'Inspect vite transforms at http://localhost:3000/__inspect/#/...',
+    )
     const viteDevMiddleware = (
       await createServer({
         root: `${import.meta.dirname}/..`,

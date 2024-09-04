@@ -1,15 +1,15 @@
 // https://github.com/crabnebula-dev/devtools/blob/b34c10993415701de881bef06c3f4eeba655c0a3/clients/web/src/components/virtual-list.tsx
 import { createVirtualizer } from '@tanstack/solid-virtual'
-import { createEffect,For, type JSXElement, Show } from 'solid-js'
+import { createEffect, For, type JSX, Show } from 'solid-js'
 
 export function DynVirtualList<VirtualItem>(props: {
   dataStream: VirtualItem[]
   class?: string
   estimateSize: number
   overscan: number
-  children: (item: VirtualItem, index: number) => JSXElement
+  children: (item: VirtualItem, index: number) => JSX.Element
   shouldAutoScroll?: boolean
-}) {
+}): JSX.Element {
   let virtualScrollElement: HTMLDivElement | undefined
 
   const virtualizer = createVirtualizer({
@@ -58,9 +58,11 @@ export function DynVirtualList<VirtualItem>(props: {
               return (
                 <li
                   data-index={virtualRow.index}
-                  ref={(el) =>
-                    { queueMicrotask(() => { virtualizer.measureElement(el); }); }
-                  }
+                  ref={(el) => {
+                    queueMicrotask(() => {
+                      virtualizer.measureElement(el)
+                    })
+                  }}
                 >
                   <Show when={props.dataStream[virtualRow.index]}>
                     {props.children(

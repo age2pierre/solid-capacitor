@@ -1,11 +1,16 @@
+import { For, type JSX } from 'solid-js'
+
 import { LazyImg } from '../components/LazyImg'
 
-export default function DemoLazyImages() {
+export default function DemoLazyImages(): JSX.Element {
   return (
     <>
-      {[...new Array<void>(1085)]
-        .map((_, i) => `https://picsum.photos/id/${i}/300/200`)
-        .map((item) => (
+      <For
+        each={[...new Array<void>(1085)].map(
+          (_, i) => `https://picsum.photos/id/${i}/300/200`,
+        )}
+      >
+        {(item) => (
           <div class="w-full h-[200px]">
             <LazyImg
               src={item}
@@ -13,7 +18,8 @@ export default function DemoLazyImages() {
               class="mx-auto h-full max-w-[300px] text-center"
             />
           </div>
-        ))}
+        )}
+      </For>
     </>
   )
 }

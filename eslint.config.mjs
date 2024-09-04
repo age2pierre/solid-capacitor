@@ -2,11 +2,13 @@
 import eslint from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
+import solid from 'eslint-plugin-solid/configs/typescript'
 
 export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
+  solid,
   {
     languageOptions: {
       parserOptions: {
@@ -32,6 +34,15 @@ export default tseslint.config(
       'prefer-destructuring': 'off',
       '@typescript-eslint/prefer-destructuring': 'error',
       '@typescript-eslint/promise-function-async': 'error',
+      '@typescript-eslint/explicit-function-return-type': [
+        'error',
+        {
+          allowTypedFunctionExpressions: true,
+          allowConciseArrowFunctionExpressionsStartingWithVoid: true,
+          allowDirectConstAssertionInArrowFunctions: true,
+          allowHigherOrderFunctions: true,
+        },
+      ],
       '@typescript-eslint/restrict-template-expressions': [
         'error',
         { allowNumber: true },

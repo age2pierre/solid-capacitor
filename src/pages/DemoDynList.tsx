@@ -1,6 +1,8 @@
+import { type JSX } from 'solid-js'
+
 import { DynVirtualList } from '../components/DynVirtualList'
 
-export default function DemoDynList() {
+export default function DemoDynList(): JSX.Element {
   return (
     <DynVirtualList
       class="mx-auto"
