@@ -1,15 +1,32 @@
 /* @refresh reload */
-import './index.css'
-import 'solid-devtools'
-
-import { attachDevtoolsOverlay } from '@solid-devtools/overlay'
 import { render } from 'solid-js/web'
-import { config } from 'telefunc/client'
 
-import App from './App'
+import { createSignal, type JSX } from 'solid-js'
 
-config.telefuncUrl = 'http://localhost:3000/_telefunc'
+import { R } from '@mobily/ts-belt'
 
-attachDevtoolsOverlay()
+import { generateRandomString } from './crypto.telefunc'
+
+export default function App(): JSX.Element {
+  const [str, setStr] = createSignal('empty')
+
+  return (
+    <>
+      <h1>Hello world !</h1>
+      <p>{str()}</p>
+      <button
+        onClick={async () =>
+          setStr(
+            await generateRandomString(12).then(
+              (val) => R.toNullable(val) ?? 'error',
+            ),
+          )
+        }
+      >
+        Generate
+      </button>
+    </>
+  )
+}
 
 render(() => <App />, document.getElementById('root') ?? document.body)
