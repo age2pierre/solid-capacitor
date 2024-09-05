@@ -62,5 +62,10 @@
     "serve-handler": "6.1.5",
     "solid-js": "1.8.22",
     "telefunc": "0.1.78"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@mobily/ts-belt": "patches/@mobily__ts-belt.patch"
+    }
   }
 }
