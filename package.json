@@ -11,7 +11,7 @@
     "preinstall": "npx only-allow pnpm",
     "dev": "pnpm run build:server && NODE_ENV=development node ./dist/server/entry-server.js",
     "clean": "rm -rf dist",
-    "build": "pnpm run build:client && pnpm run build:server",
+    "build": "pnpm run build:client && pnpm run build:server && pnpm run build:sync",
     "build:client": "vite build",
     "build:server": "vite build --ssr",
     "build:sync": "cap sync",

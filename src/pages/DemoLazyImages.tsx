@@ -13,6 +13,7 @@ export default function DemoLazyImages(): JSX.Element {
         {(item) => (
           <div class="w-full h-[200px]">
             <LazyImg
+              rootMargin="400px"
               src={item}
               alt="picsum dolor sit amet"
               class="mx-auto h-full max-w-[300px] text-center"
