@@ -15,6 +15,7 @@
     "build:client": "vite build",
     "build:server": "vite build --ssr",
     "build:sync": "cap sync",
+    "build:assets": "capacitor-assets generate",
     "format": "prettier --write . --ignore-unknown",
     "format:check": "prettier --check . --ignore-unknown",
     "typecheck": "tsc --noEmit",
@@ -39,6 +40,7 @@
     ]
   },
   "devDependencies": {
+    "@capacitor/assets": "3.0.5",
     "@capacitor/cli": "6.1.2",
     "@eslint/js": "9.9.1",
     "@ryoppippi/unplugin-typia": "npm:@jsr/ryoppippi__unplugin-typia@1.0.3-beta.4",
