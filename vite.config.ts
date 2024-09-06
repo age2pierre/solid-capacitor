@@ -1,3 +1,5 @@
+import { resolve } from 'node:path'
+
 // import devtools from 'solid-devtools/vite'
 import UnpluginTypia from '@ryoppippi/unplugin-typia/vite'
 import { telefunc } from 'telefunc/vite'
@@ -7,7 +9,6 @@ import solidPlugin from 'vite-plugin-solid'
 
 export default defineConfig((_env) => ({
   plugins: [
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     UnpluginTypia(),
     // @ts-expect-error: telefunc has no undefined type
     telefunc({
@@ -45,4 +46,9 @@ export default defineConfig((_env) => ({
   appType: 'spa',
   server: { port: 3000, host: true },
   preview: { port: 3000 },
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './src'),
+    },
+  },
 }))
