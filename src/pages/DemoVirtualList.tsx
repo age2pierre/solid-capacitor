@@ -1,6 +1,6 @@
 import { type JSX } from 'solid-js'
 
-import { VirtualList } from '../components/VirtualList'
+import { VirtualList } from '#/components/VirtualList'
 
 export default function DemoVirtualList(): JSX.Element {
   return (

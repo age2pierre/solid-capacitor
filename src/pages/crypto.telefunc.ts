@@ -2,7 +2,7 @@ import { randomBytes } from 'node:crypto'
 
 import { R, type Result } from '@mobily/ts-belt'
 
-import { wait } from '../utils'
+import { wait } from '#/utils'
 
 const MAX_LEN = 2 ** 31 - 1
 

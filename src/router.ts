@@ -1,7 +1,7 @@
 import { type RouteDefinition } from '@solidjs/router'
 import { lazy } from 'solid-js'
 
-import { cachedGenerateRandomString } from './pages/DemoDataLoadind.data'
+import { cachedGenerateRandomString } from '#/pages/DemoDataLoadind.data'
 
 export const ROUTES = [
   {

@@ -6,7 +6,7 @@ import { type Telefunc, telefunc } from 'telefunc'
 import { createIs } from 'typia'
 import { createServer } from 'vite'
 
-import { ENV_VARS } from './envvar'
+import { ENV_VARS } from '#/envvar'
 
 export const isProduction = ENV_VARS.NODE_ENV === 'production'
 export const PORT = 3000

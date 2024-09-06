@@ -1,6 +1,6 @@
 import { For, type JSX } from 'solid-js'
 
-import { LazyImg } from '../components/LazyImg'
+import { LazyImg } from '#/components/LazyImg'
 
 export default function DemoLazyImages(): JSX.Element {
   return (

@@ -1,7 +1,8 @@
 import { createAsync } from '@solidjs/router'
 import { createSignal, type JSX } from 'solid-js'
 
-import { NullableResult } from '../components/NullableResult'
+import { NullableResult } from '#/components/NullableResult'
+
 import { cachedGenerateRandomString } from './DemoDataLoadind.data'
 
 export default function DemoDataLoading(): JSX.Element {

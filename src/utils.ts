@@ -1,4 +1,11 @@
 import { R, type Result } from '@mobily/ts-belt'
+import type { ClassValue } from 'clsx'
+import clsx from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
+export function cn(...classLists: ClassValue[]): string {
+  return twMerge(clsx(classLists))
+}
 
 export const exhaustiveCheck = (param: never): Result<never, string> => {
   return R.Error(`exahustive check, cause: ${JSON.stringify(param)}`)
