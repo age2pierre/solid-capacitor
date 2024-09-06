@@ -3,5 +3,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.ts": "always",
     "source.fixAll.eslint": "always"
-  }
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

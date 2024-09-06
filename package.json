@@ -21,12 +21,14 @@
     "lint": "eslint ./src/",
     "lint:fix": "eslint --fix ./src/",
     "serve": "NODE_ENV=production node ./dist/server/entry-server.js",
-    "android": "cap open android"
+    "android": "cap open android",
+    "prepare": "ts-patch install && typia patch"
   },
   "license": "MIT",
   "devDependencies": {
     "@capacitor/cli": "6.1.2",
     "@eslint/js": "9.9.1",
+    "@ryoppippi/unplugin-typia": "npm:@jsr/ryoppippi__unplugin-typia@1.0.3-beta.4",
     "@types/eslint__js": "8.42.3",
     "autoprefixer": "10.4.20",
     "eslint-plugin-simple-import-sort": "12.1.1",
@@ -36,6 +38,7 @@
     "prettier": "3.3.3",
     "solid-devtools": "0.30.1",
     "tailwindcss": "3.4.10",
+    "ts-patch": "3.2.1",
     "typescript-eslint": "8.4.0",
     "typescript": "5.5.4",
     "vite-plugin-inspect": "0.8.7",
@@ -60,7 +63,8 @@
     "jsonwebtoken": "9.0.2",
     "serve-handler": "6.1.5",
     "solid-js": "1.8.22",
-    "telefunc": "0.1.78"
+    "telefunc": "0.1.78",
+    "typia": "6.9.0"
   },
   "pnpm": {
     "patchedDependencies": {

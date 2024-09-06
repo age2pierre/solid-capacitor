@@ -1,4 +1,5 @@
 // import devtools from 'solid-devtools/vite'
+import UnpluginTypia from '@ryoppippi/unplugin-typia/vite'
 import { telefunc } from 'telefunc/vite'
 import { defineConfig, type UserConfig } from 'vite'
 import inspect from 'vite-plugin-inspect'
@@ -6,6 +7,8 @@ import solidPlugin from 'vite-plugin-solid'
 
 export default defineConfig((_env) => ({
   plugins: [
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    UnpluginTypia(),
     // @ts-expect-error: telefunc has no undefined type
     telefunc({
       disableNamingConvention: true,

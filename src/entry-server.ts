@@ -3,6 +3,7 @@ import { default as express } from 'express'
 import { default as jwt } from 'jsonwebtoken'
 import { default as serveHandler } from 'serve-handler'
 import { type Telefunc, telefunc } from 'telefunc'
+import { createIs } from 'typia'
 import { createServer } from 'vite'
 
 export const isProduction = process.env.NODE_ENV === 'production'
@@ -16,16 +17,7 @@ export type TokenPayload = {
   display_name: string
 }
 
-function isTokenPayload(payload: unknown): payload is TokenPayload {
-  return (
-    typeof payload === 'object' &&
-    payload != null &&
-    'user_id' in payload &&
-    typeof payload.user_id === 'string' &&
-    'display_name' in payload &&
-    typeof payload.display_name === 'string'
-  )
-}
+const isTokenPayload = createIs<TokenPayload>()
 
 async function startServer(): Promise<void> {
   const app = express()
