@@ -6,9 +6,10 @@ import { type Telefunc, telefunc } from 'telefunc'
 import { createIs } from 'typia'
 import { createServer } from 'vite'
 
-export const isProduction = process.env.NODE_ENV === 'production'
+import { ENV_VARS } from './envvar'
+
+export const isProduction = ENV_VARS.NODE_ENV === 'production'
 export const PORT = 3000
-export const JWT_SECRET = process.env.JWT_SECRET ?? 'JWT_SECRET'
 
 await startServer()
 
@@ -40,7 +41,7 @@ async function startServer(): Promise<void> {
           resolve(undefined)
           return
         }
-        jwt.verify(token, JWT_SECRET, (err, decoded) => {
+        jwt.verify(token, ENV_VARS.JWT_SECRET, (err, decoded) => {
           if (err) {
             console.warn('authenticateToken: token unauthenticated %j', err)
             resolve(undefined)
@@ -54,7 +55,7 @@ async function startServer(): Promise<void> {
     const user = decoded && isTokenPayload(decoded) ? decoded : null
 
     const context: Telefunc.Context = {
-      JWT_SECRET,
+      JWT_SECRET: ENV_VARS.JWT_SECRET,
       user,
     }
 

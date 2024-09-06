@@ -25,6 +25,7 @@ export default tseslint.config(
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
       'no-else-return': 'error',
+      'no-process-env': 'error',
       'no-lonely-if': 'error',
       'one-var': ['error', 'never'],
       'object-shorthand': ['error', 'always'],

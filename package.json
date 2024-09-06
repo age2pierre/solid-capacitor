@@ -9,7 +9,7 @@
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "dev": "pnpm run build:server && NODE_ENV=development node ./dist/server/entry-server.js",
+    "dev": "pnpm run build:server && node --env-file=.env.local ./dist/server/entry-server.js",
     "clean": "rm -rf dist",
     "build": "pnpm run build:client && pnpm run build:server && pnpm run build:sync",
     "build:client": "vite build",
@@ -20,7 +20,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint ./src/",
     "lint:fix": "eslint --fix ./src/",
-    "serve": "NODE_ENV=production node ./dist/server/entry-server.js",
+    "serve": "node --env-file=.env ./dist/server/entry-server.js",
     "android": "cap open android",
     "prepare": "ts-patch install && typia patch"
   },
