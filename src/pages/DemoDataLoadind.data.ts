@@ -1,5 +1,8 @@
 import { cache } from '@solidjs/router'
 
-import { readLockFile } from './getFakeData.telefunc'
+import { generateRandomString } from './crypto.telefunc'
 
-export const cachedReadLockFile = cache(readLockFile, 'readLockFile')
+export const cachedGenerateRandomString = cache(
+  generateRandomString,
+  'generateRandomString',
+)

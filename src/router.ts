@@ -1,7 +1,7 @@
 import { type RouteDefinition } from '@solidjs/router'
 import { lazy } from 'solid-js'
 
-import { cachedReadLockFile } from './pages/DemoDataLoadind.data'
+import { cachedGenerateRandomString } from './pages/DemoDataLoadind.data'
 
 export const ROUTES = [
   {
@@ -12,7 +12,7 @@ export const ROUTES = [
   {
     path: '/demo-data-loading',
     component: lazy(async () => import('./pages/DemoDataLoading')),
-    preload: () => void cachedReadLockFile(),
+    preload: () => void cachedGenerateRandomString(8),
     info: { title: '📊 Data Loading' },
   },
   {

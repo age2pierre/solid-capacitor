@@ -80,7 +80,7 @@ async function startServer(): Promise<void> {
     console.log('Serving static files in production mode...')
     app.use(async (req, res) =>
       serveHandler(req, res, {
-        public: `${import.meta.dirname}/../dist/client/`,
+        public: `${import.meta.dirname}/../client/`,
         rewrites: [
           {
             source: '/{!(assets)/**/*,*}',
@@ -97,7 +97,7 @@ async function startServer(): Promise<void> {
     )
     const viteDevMiddleware = (
       await createServer({
-        root: `${import.meta.dirname}/..`,
+        root: `${import.meta.dirname}/../../`,
         server: { middlewareMode: true },
       })
     ).middlewares
