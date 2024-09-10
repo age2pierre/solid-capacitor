@@ -1,27 +1,42 @@
+import { type Server } from 'node:http'
+
+import { R } from '@mobily/ts-belt'
 import { default as cors } from 'cors'
+import { eq } from 'drizzle-orm'
 import { default as express } from 'express'
-import { default as jwt } from 'jsonwebtoken'
+import multer, { diskStorage } from 'multer'
 import { default as serveHandler } from 'serve-handler'
 import { type Telefunc, telefunc } from 'telefunc'
-import { createIs } from 'typia'
 import { createServer } from 'vite'
 
+import { closeDb, db, initDb, schema } from '#/db'
 import { ENV_VARS } from '#/envvar'
+
+import { restoreMediaFileByOid, storeMediaFile } from './db/large-object'
+import { decodeJwtToken } from './jwt-token'
 
 export const isProduction = ENV_VARS.NODE_ENV === 'production'
 export const PORT = 3000
 
-await startServer()
+const _server = await startServer()
 
-export type TokenPayload = {
-  user_id: string
-  display_name: string
-}
+process.on('SIGINT', async () => {
+  try {
+    console.log('Received SIGINT, shutting down...')
+    await new Promise((resolve) => _server.close(resolve))
+    await closeDb()
+    console.log('Server closed')
+    process.exit(0)
+  } catch {
+    console.error('Failed to close server, exiting with code 1')
+    process.exit(1)
+  }
+})
 
-const isTokenPayload = createIs<TokenPayload>()
-
-async function startServer(): Promise<void> {
+async function startServer(): Promise<Server> {
   const app = express()
+
+  await initDb()
 
   app.use(
     cors({
@@ -53,25 +68,7 @@ async function startServer(): Promise<void> {
   // RPC middleware
   app.all('/_telefunc', async (req, res) => {
     // decode JWT token if present in authorization header
-    const token = req.headers.authorization?.split(' ')[1]
-    const decoded = await new Promise<string | jwt.JwtPayload | undefined>(
-      (resolve) => {
-        if (!token) {
-          resolve(undefined)
-          return
-        }
-        jwt.verify(token, ENV_VARS.JWT_SECRET, (err, decoded) => {
-          if (err) {
-            console.warn('authenticateToken: token unauthenticated %j', err)
-            resolve(undefined)
-            return
-          }
-          resolve(decoded)
-        })
-      },
-    )
-
-    const user = decoded && isTokenPayload(decoded) ? decoded : null
+    const user = await decodeJwtToken(req)
 
     const context: Telefunc.Context = {
       JWT_SECRET: ENV_VARS.JWT_SECRET,
@@ -85,6 +82,59 @@ async function startServer(): Promise<void> {
       context,
     })
     res.status(statusCode).type(contentType).send(body)
+  })
+
+  // serve large object
+  app.get('/mediafile/:oid', async (req, res) => {
+    const { oid } = req.params
+    const metadata = await db.query.mediaFile.findFirst({
+      where: eq(schema.mediaFile.id, oid),
+    })
+    if (!metadata) {
+      return res.status(404).send('Unable to find mediafile with oid ' + oid)
+    }
+    res.setHeader(
+      'content-type',
+      metadata.mimeType ? metadata.mimeType : 'application/octet-stream',
+    )
+    res.setHeader('content-length', metadata.size_bytes)
+
+    const result = await restoreMediaFileByOid(metadata.largeObjectId, res)
+
+    R.match(
+      result,
+      () => {
+        res.status(200).send()
+      },
+      (error) => {
+        res.status(500).send(error)
+      },
+    )
+  })
+
+  // diskStorage here does nothing, we manually stream the file
+  const upload = multer({ storage: diskStorage({}) })
+  // upload large object
+  app.post('/mediafile', upload.single('file'), async (req, res) => {
+    if (!req.file) {
+      return res.status(400).send('No file uploaded')
+    }
+
+    // Pipe the file stream directly to the file system
+    const mediaFileResult = await storeMediaFile({
+      src: { stream: req.file.stream, originalfilename: req.file.originalname },
+    })
+
+    R.match(
+      mediaFileResult,
+      (media) => {
+        res.status(200).json(media)
+      },
+      (error) => {
+        res.status(500).send(error)
+      },
+    )
+    return
   })
 
   if (isProduction) {
@@ -116,6 +166,8 @@ async function startServer(): Promise<void> {
     app.use(viteDevMiddleware)
   }
 
-  app.listen(PORT)
+  const server = app.listen(PORT)
   console.log(`Server running at http://localhost:${PORT} 🚀`)
+
+  return server
 }
