@@ -31,6 +31,25 @@ async function startServer(): Promise<void> {
   )
   app.use(express.text())
 
+  // healthcheck handler
+  app.get('/health', (_, res, next) => {
+    try {
+      const healthcheck = {
+        uptime: process.uptime(),
+        message: 'OK',
+        timestamp: Date.now(),
+      } as const
+      res.send(healthcheck)
+    } catch (error) {
+      res.status(503).send({
+        message: 'NOK',
+        error: String(error),
+      })
+    } finally {
+      next()
+    }
+  })
+
   // RPC middleware
   app.all('/_telefunc', async (req, res) => {
     // decode JWT token if present in authorization header
