@@ -1,0 +1,18 @@
+staging.lokaly.online {
+	handle_path /pgadmin4/* {
+		reverse_proxy pgadmin:80 {
+			header_up X-Script-Name /pgadmin4
+			header_up X-Scheme {scheme}
+			header_up Host {host}
+			header_down Location "^http://pgadmin(:80)?(/.*)$" "https://staging.lokaly.online/pgadmin4$2"
+		}
+	}
+
+	handle_path /api/* {
+		reverse_proxy webserver:3000
+	}
+
+	redir / /pgadmin4/
+
+	respond * "Not found" 404
+}

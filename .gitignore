@@ -1,6 +1,8 @@
 node_modules
 dist
 
+deployment
+
 # env files
 .env*
 !.env.example

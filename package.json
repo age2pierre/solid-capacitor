@@ -25,7 +25,7 @@
     "lint:fix": "eslint --fix ./src/",
     "preinstall": "npx only-allow pnpm",
     "prepare": "ts-patch install && typia patch",
-    "serve": "node --env-file=.env ./dist/server/entry-server.js",
+    "start": "node --env-file=.env ./dist/server/entry-server.js",
     "typecheck": "tsc --noEmit",
     "with-env": "dotenv -e ../../.env --"
   },
